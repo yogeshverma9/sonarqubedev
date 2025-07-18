@@ -3,3 +3,8 @@ name: sonarqube
 description: A Helm chart for SonarQube Enterprise with external PostgreSQL
 version: 1.0.0
 appVersion: 9.9.0-enterprise
+dependencies:
+- name: postgresql
+  version: 12.2.8
+  repository: https://charts.bitnami.com/bitnami
+  condition: postgresql.enabled
