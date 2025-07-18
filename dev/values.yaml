@@ -1,0 +1,65 @@
+# SonarQube Configuration
+sonarqube:
+  image:
+    repository: sonarqube
+    tag: 9.9.0-enterprise
+    pullPolicy: IfNotPresent
+  replicaCount: 1
+  webContext: /
+  resources:
+    requests:
+      memory: "2Gi"
+      cpu: "500m"
+    limits:
+      memory: "4Gi"
+      cpu: "2000m"
+  jvmOpts: "-Xmx1g -Xms512m -XX:+HeapDumpOnOutOfMemoryError"
+  plugins: ""
+  securityContext:
+    runAsUser: 1000
+    fsGroup: 1000
+
+# External PostgreSQL Configuration
+externalPostgresql:
+  enabled: false
+  host: "postgresql-host"
+  port: 5432
+  database: "sonarqube"
+  username: "sonarqube"
+  password: ""
+  existingSecret: ""
+
+# PostgreSQL Subchart Configuration (for internal use)
+postgresql:
+  enabled: false
+  global:
+    postgresql:
+      auth:
+        database: "sonarqube"
+        username: "sonarqube"
+        password: ""
+
+# Service Configuration
+service:
+  type: LoadBalancer
+  port: 9000
+  annotations: {}
+
+# Ingress Configuration
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: sonarqube.example.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+# Persistence Configuration
+persistence:
+  enabled: true
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 10Gi
