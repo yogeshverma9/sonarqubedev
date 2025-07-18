@@ -1,6 +1,5 @@
 apiVersion: v2
-name: sonarqube-enterprise
-description: A Helm chart for SonarQube Enterprise Edition with external PostgreSQL
-type: application
+name: sonarqube
+description: A Helm chart for SonarQube Enterprise with external PostgreSQL
 version: 1.0.0
-appVersion: "9.9"
+appVersion: 9.9.0-enterprise

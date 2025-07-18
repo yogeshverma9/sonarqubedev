@@ -1,0 +1,69 @@
+{{- if .Values.persistence.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-sonarqube-data
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}-sonarqube
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size }}
+  {{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+  {{- end }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-sonarqube-extensions
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}-sonarqube
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.accessMode }}
+  resources:
+    requests:
+      storage: 1Gi
+  {{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+  {{- end }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-sonarqube-logs
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}-sonarqube
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.accessMode }}
+  resources:
+    requests:
+      storage: 1Gi
+  {{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+  {{- end }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Release.Name }}-sonarqube-temp
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}-sonarqube
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.accessMode }}
+  resources:
+    requests:
+      storage: 1Gi
+  {{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+  {{- end }}
+{{- end }}
