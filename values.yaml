@@ -1,0 +1,43 @@
+replicaCount: 1
+
+image:
+  repository: sonarqube
+  tag: 2025.1-enterprise
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 9000
+
+ingress:
+  enabled: true
+  annotations: {}
+  hosts:
+    - host: sonarqube.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+postgresql:
+  enabled: false
+  external:
+    host: <your-postgres-host>
+    port: 5432
+    user: <your-db-username>
+    password: <your-db-password>
+    database: <your-db-name>
+
+persistence:
+  enabled: true
+  storageClass: azurefile
+  size: 10Gi
+
+resources:
+  requests:
+    memory: "2Gi"
+    cpu: "500m"
+  limits:
+    memory: "4Gi"
+    cpu: "1"
+
