@@ -3,12 +3,12 @@ entries:
   sonarqube-enterprise:
   - apiVersion: v2
     appVersion: "9.9"
-    created: "2025-07-18T15:12:33.862775854+05:30"
+    created: "2025-07-18T15:17:35.715661663+05:30"
     description: A Helm chart for SonarQube Enterprise Edition with external PostgreSQL
     digest: 71ee79a3e42f32393d5e422badeab2444459eb87c7e50a55dca15cf2d2c59b34
     name: sonarqube-enterprise
     type: application
     urls:
-    - https://github.com/yogeshverma9/sonarqubedev/charts/sonarqube-enterprise-1.0.0.tgz
+    - https://github.com/yogeshverma9/sonarqubedev/charts/charts/sonarqube-enterprise-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-18T15:12:33.861570209+05:30"
+generated: "2025-07-18T15:17:35.713940149+05:30"
