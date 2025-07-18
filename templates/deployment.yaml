@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarqube
+spec:
+  replicas: {{ .Values.sonarqube.replicaCount }}
+  selector:
+    matchLabels:
+      app: sonarqube
+  template:
+    metadata:
+      labels:
+        app: sonarqube
+    spec:
+      containers:
+      - name: sonarqube
+        image: "{{ .Values.sonarqube.image.repository }}:{{ .Values.sonarqube.image.tag }}"
+        imagePullPolicy: {{ .Values.sonarqube.image.pullPolicy }}
+        ports:
+        - containerPort: 9000
+        env:
+        - name: SONARQUBE_JDBC_URL
+          value: "{{ .Values.externalDatabase.jdbcUrl }}"
+        - name: SONARQUBE_JDBC_USERNAME
+          value: "{{ .Values.externalDatabase.user }}"
+        - name: SONARQUBE_JDBC_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.externalDatabase.passwordSecret }}
+              key: password
+        - name: SONAR_WEB_JAVAOPTS
+          value: "{{ .Values.sonarqube.javaOpts }}"
+        volumeMounts:
+        - name: license
+          mountPath: /opt/sonarqube/extensions/license
+          readOnly: true
+        resources:
+          {{- toYaml .Values.sonarqube.resources | nindent 10 }}
+      volumes:
+      - name: license
+        secret:
+          secretName: {{ .Values.sonarqube.licenseSecret }}
